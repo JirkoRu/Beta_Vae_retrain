@@ -73,6 +73,10 @@ class DataGather(object):
 
 class Solver(object):
     def __init__(self, args):
+        print("Here is the test MOFO!")
+        print(torch.cuda.is_available(), torch.cuda.device_count(), torch.cuda.current_device())
+        print(torch.cuda.device(0))
+        print(torch.cuda.get_device_name(0))
         self.use_cuda = args.cuda and torch.cuda.is_available()
         self.max_iter = args.max_iter
         self.global_iter = 0
@@ -178,6 +182,7 @@ class Solver(object):
                                        dim_wise_kld=dim_wise_kld.data, mean_kld=mean_kld.data)
 
                 if self.global_iter%self.display_step == 0:
+                    print(recon_loss)
                     pbar.write('[{}] recon_loss:{:.3f} total_kld:{:.3f} mean_kld:{:.3f}'.format(
                         self.global_iter, recon_loss.data[0], total_kld.data[0], mean_kld.data[0]))
 
